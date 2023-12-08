@@ -20,32 +20,14 @@ sns.set_theme(style="ticks", context="talk")
 
 
 NAMES = {
-    "repaint-clean-00": "repaint",
-    "repaint-clean": "repaint",
-    "ldm-repaint-00": "ldm",
-    "ldm-repaint-01": "ldm",
-    "ldm-repaint": "ldm",
-    "lama-00": "lama",
+    "repaint-p2-9k": "repaint",
+    "repaint-ldm": "ldm",
     "lama": "lama",
-    "pluralistic-00": "plura",
     "pluralistic": "plura",
-    "three-but-repaint": "w/o repaint",
-    "three-but-ldm": "w/o ldm",
+    "three-but-repaint-p2": "w/o repaint",
+    "three-but-repaint-ldm": "w/o ldm",
     "three-but-lama": "w/o lama",
     "three-but-pluralistic": "w/o plura",
-    "three-but-repaint-max-epochs-50": "w/o repaint",
-    "three-but-ldm-max-epochs-50": "w/o ldm",
-    "three-but-lama-max-epochs-50": "w/o lama",
-    "three-but-pluralistic-max-epochs-50": "w/o plura",
-    # camera ready
-    "repaint-p2-celebahq-9k": "repaint",
-    "ldm-repaint-01": "ldm",
-    "lama-01": "lama",
-    "pluralistic-01": "plura",
-    "three-but-repaint-max-epochs-150": "w/o repaint",
-    "three-but-ldm-max-epochs-150-p2": "w/o ldm",
-    "three-but-lama-max-epochs-150-p2": "w/o lama",
-    "three-but-pluralistic-max-epochs-150-p2": "w/o plura",
 }
 
 
@@ -85,7 +67,6 @@ def add_plot(ax, sets_tr, sets_te):
     )
 
     ax = sns.heatmap(data=df, annot=True, annot_kws={"fontsize": 18}, fmt=".1f", cbar=False, square=True, ax=ax)
-    # ax.set_xticklabels(ax.get_xticklabels(), rotation=45)
 
     return ax
 
@@ -95,28 +76,22 @@ fig, axs = plt.subplots(
 )
 axs[0] = add_plot(
     axs[0],
-    sets_tr=["repaint-p2-celebahq-9k", "ldm-repaint-01", "lama-01", "pluralistic-01"],
-    sets_te=["repaint-p2-celebahq-9k", "ldm-repaint", "lama", "pluralistic"],
+    sets_tr=["repaint-p2-9k", "repaint-ldm", "lama", "pluralistic"],
+    sets_te=["repaint-p2-9k", "repaint-ldm", "lama", "pluralistic"],
 )
 
 axs[1] = add_plot(
     axs[1],
     sets_tr=[
-        # "three-but-repaint",
-        # "three-but-ldm",
-        # "three-but-lama",
-        # "three-but-pluralistic",
-        "three-but-repaint-max-epochs-150",
-        "three-but-ldm-max-epochs-150-p2",
-        "three-but-lama-max-epochs-150-p2",
-        "three-but-pluralistic-max-epochs-150-p2",
+        "three-but-repaint-p2-9k",
+        "three-but-repaint-ldm",
+        "three-but-lama",
+        "three-but-pluralistic",
     ],
-    sets_te=["repaint-p2-celebahq-9k", "ldm-repaint", "lama", "pluralistic"],
+    sets_te=["repaint-p2-9k", "repaint-ldm", "lama", "pluralistic"],
 )
 # remove ylabels and yxticklabels and yxticks
 axs[1].set(ylabel=None, xlabel="train on (combinations of three)")
-# axs[1].set(yticks=[])
-# axs[1].set(yticklabels=[])
 
 # fig.savefig("output/wmf23/imgs/cross-generator-performance-patch-forensics.pdf")
 fig.savefig("output/wacv/imgs/cross-generator-performance-patch-forensics.pdf")

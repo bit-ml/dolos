@@ -52,7 +52,7 @@ cd /path/to/dolos && ln -s /path/to/wacv_data data
 In the paper we consider three methods for weakly-supervised localization:
 
 - **Grad-CAM.** TODO
-- **Patch forensics.** Implemented in `dolos/methods/patch_forensics`.
+- **Patches.** Implemented in `dolos/methods/patch_forensics`.
 - **Attention.** Implemented in `dolos/methods/xception_attention`.
 
 These methods are evaluated three experimental setups:
@@ -63,9 +63,15 @@ These methods are evaluated three experimental setups:
 
 ### Main experiments (§5.1)
 
+TODO
+
 To replicate the experiments:
 
-| | 
+| | Grad-CAM | Patches | Attention |
+| --- | --- | --- | --- |
+| Setup A | | | |
+| Setup B | | | |
+| Setup C | | | |
 
 ### Cross-generator experiments (§5.3)
 
@@ -118,3 +124,4 @@ The name comes from Greek mythology; according [Wikipedia](https://en.wikipedia.
 - [ ] Add license
 - [ ] Release pretrained models
 - [ ] Incorporate the Grad-CAM code.
+- [ ] Scripts to run the main experiments.

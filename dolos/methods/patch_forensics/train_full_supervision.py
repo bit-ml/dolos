@@ -24,10 +24,7 @@ from dolos.methods.patch_forensics.networks.customnet import make_patch_xception
 from dolos.metrics.iou_ignite import IOU
 from dolos.data import (
     ConcatDataset,
-    RepaintDataset,
-    RepaintCleanDataset,
-    RepaintP2CelebAHQCleanSmallDataset,
-    RepaintP2CelebAHQClean9KDataset,
+    RepaintP2CelebAHQ9KDataset,
     RepaintP2FFHQCleanDataset,
     LamaDataset,
     LDMRepaintDataset,
@@ -73,38 +70,10 @@ def load_image(dataset, i, *args, **kwargs):
 
 
 CONFIGS = {
-    "repaint-noisy-00": {
+    "repaint-p2-9k": {
         "last-layer": "block2",
         "frontend": None,
-        "dataset-class": RepaintDataset,
-        "load-image": load_image,
-        "max-epochs": 15,
-    },
-    "repaint-clean-00": {
-        "last-layer": "block2",
-        "frontend": None,
-        "dataset-class": RepaintCleanDataset,
-        "load-image": load_image,
-        "max-epochs": 15,
-    },
-    "repaint-clean-01": {
-        "last-layer": "block2",
-        "frontend": None,
-        "dataset-class": RepaintCleanDataset,
-        "load-image": load_image,
-        "max-epochs": 50,
-    },
-    "repaint-p2-celebahq-small": {
-        "last-layer": "block2",
-        "frontend": None,
-        "dataset-class": RepaintP2CelebAHQCleanSmallDataset,
-        "load-image": load_image,
-        "max-epochs": 15,
-    },
-    "repaint-p2-celebahq-9k": {
-        "last-layer": "block2",
-        "frontend": None,
-        "dataset-class": RepaintP2CelebAHQClean9KDataset,
+        "dataset-class": RepaintP2CelebAHQ9KDataset,
         "load-image": load_image,
         "max-epochs": 50,
     },
@@ -113,150 +82,26 @@ CONFIGS = {
         "frontend": None,
         "dataset-class": RepaintP2FFHQCleanDataset,
         "load-image": load_image,
-        "max-epochs": 30,
-    },
-    "repaint-p2-ffhq-block3": {
-        "last-layer": "block3",
-        "frontend": None,
-        "dataset-class": RepaintP2FFHQCleanDataset,
-        "load-image": load_image,
-        "max-epochs": 75,
-    },
-    "repaint-p2-ffhq-lr-3e-4": {
-        "last-layer": "block2",
-        "frontend": None,
-        "dataset-class": RepaintP2FFHQCleanDataset,
-        "load-image": load_image,
-        "max-epochs": 30,
-        "learning-rate": 3e-4,
-    },
-    "lama-00": {
-        "last-layer": "block2",
-        "frontend": None,
-        "dataset-class": LamaDataset,
-        "load-image": load_image,
-        "max-epochs": 15,
-    },
-    "lama-01": {
-        "last-layer": "block2",
-        "frontend": None,
-        "dataset-class": LamaDataset,
-        "load-image": load_image,
         "max-epochs": 50,
     },
-    "ldm-repaint-00": {
-        "last-layer": "block2",
-        "frontend": None,
-        "dataset-class": LDMRepaintDataset,
-        "load-image": load_image,
-        "max-epochs": 15,
-    },
-    "ldm-repaint-01": {
+    "repaint-ldm": {
         "last-layer": "block2",
         "frontend": None,
         "dataset-class": LDMRepaintDataset,
         "load-image": load_image,
         "max-epochs": 50,
     },
-    "pluralistic-00": {
+    "lama": {
+        "last-layer": "block2",
+        "frontend": None,
+        "dataset-class": LamaDataset,
+        "load-image": load_image,
+        "max-epochs": 50,
+    },
+    "pluralistic": {
         "last-layer": "block2",
         "frontend": None,
         "dataset-class": PluralisticDataset,
-        "load-image": load_image,
-        "max-epochs": 15,
-    },
-    "pluralistic-01": {
-        "last-layer": "block2",
-        "frontend": None,
-        "dataset-class": PluralisticDataset,
-        "load-image": load_image,
-        "max-epochs": 50,
-    },
-    "three-but-repaint": {
-        "last-layer": "block2",
-        "frontend": None,
-        "dataset-class": lambda split: ConcatDataset(
-            LamaDataset(split),
-            PluralisticDataset(split),
-            LDMRepaintDataset(split),
-        ),
-        "load-image": load_image,
-        "max-epochs": 15,
-    },
-    "three-but-lama": {
-        "last-layer": "block2",
-        "frontend": None,
-        "dataset-class": lambda split: ConcatDataset(
-            RepaintCleanDataset(split),
-            PluralisticDataset(split),
-            LDMRepaintDataset(split),
-        ),
-        "load-image": load_image,
-        "max-epochs": 15,
-    },
-    "three-but-pluralistic": {
-        "last-layer": "block2",
-        "frontend": None,
-        "dataset-class": lambda split: ConcatDataset(
-            LamaDataset(split),
-            RepaintCleanDataset(split),
-            LDMRepaintDataset(split),
-        ),
-        "load-image": load_image,
-        "max-epochs": 15,
-    },
-    "three-but-ldm": {
-        "last-layer": "block2",
-        "frontend": None,
-        "dataset-class": lambda split: ConcatDataset(
-            RepaintCleanDataset(split),
-            LamaDataset(split),
-            PluralisticDataset(split),
-        ),
-        "load-image": load_image,
-        "max-epochs": 15,
-    },
-    "three-but-repaint-max-epochs-50": {
-        "last-layer": "block2",
-        "frontend": None,
-        "dataset-class": lambda split: ConcatDataset(
-            LamaDataset(split),
-            PluralisticDataset(split),
-            LDMRepaintDataset(split),
-        ),
-        "load-image": load_image,
-        "max-epochs": 50,
-    },
-    "three-but-lama-max-epochs-50": {
-        "last-layer": "block2",
-        "frontend": None,
-        "dataset-class": lambda split: ConcatDataset(
-            RepaintCleanDataset(split),
-            PluralisticDataset(split),
-            LDMRepaintDataset(split),
-        ),
-        "load-image": load_image,
-        "max-epochs": 50,
-    },
-    "three-but-pluralistic-max-epochs-50": {
-        "last-layer": "block2",
-        "frontend": None,
-        "dataset-class": lambda split: ConcatDataset(
-            LamaDataset(split),
-            RepaintCleanDataset(split),
-            LDMRepaintDataset(split),
-        ),
-        "load-image": load_image,
-        "max-epochs": 50,
-    },
-    "three-but-ldm-max-epochs-50": {
-        "last-layer": "block2",
-        "frontend": None,
-        "dataset-class": lambda split: ConcatDataset(
-            RepaintCleanDataset(split),
-            LamaDataset(split),
-            PluralisticDataset(split),
-        ),
         "load-image": load_image,
         "max-epochs": 50,
     },
@@ -271,33 +116,11 @@ CONFIGS = {
         "load-image": load_image,
         "max-epochs": 150,
     },
-    "three-but-lama-max-epochs-150": {
+    "three-but-ldm-max-epochs-150-p2": {
         "last-layer": "block2",
         "frontend": None,
         "dataset-class": lambda split: ConcatDataset(
-            RepaintCleanDataset(split),
-            PluralisticDataset(split),
-            LDMRepaintDataset(split),
-        ),
-        "load-image": load_image,
-        "max-epochs": 150,
-    },
-    "three-but-pluralistic-max-epochs-150": {
-        "last-layer": "block2",
-        "frontend": None,
-        "dataset-class": lambda split: ConcatDataset(
-            LamaDataset(split),
-            RepaintCleanDataset(split),
-            LDMRepaintDataset(split),
-        ),
-        "load-image": load_image,
-        "max-epochs": 150,
-    },
-    "three-but-ldm-max-epochs-150": {
-        "last-layer": "block2",
-        "frontend": None,
-        "dataset-class": lambda split: ConcatDataset(
-            RepaintCleanDataset(split),
+            RepaintP2CelebAHQ9KDataset(split),
             LamaDataset(split),
             PluralisticDataset(split),
         ),
@@ -308,7 +131,7 @@ CONFIGS = {
         "last-layer": "block2",
         "frontend": None,
         "dataset-class": lambda split: ConcatDataset(
-            RepaintP2CelebAHQClean9KDataset(split),
+            RepaintP2CelebAHQ9KDataset(split),
             PluralisticDataset(split),
             LDMRepaintDataset(split),
         ),
@@ -320,36 +143,11 @@ CONFIGS = {
         "frontend": None,
         "dataset-class": lambda split: ConcatDataset(
             LamaDataset(split),
-            RepaintP2CelebAHQClean9KDataset(split),
+            RepaintP2CelebAHQ9KDataset(split),
             LDMRepaintDataset(split),
         ),
         "load-image": load_image,
         "max-epochs": 150,
-    },
-    "three-but-ldm-max-epochs-150-p2": {
-        "last-layer": "block2",
-        "frontend": None,
-        "dataset-class": lambda split: ConcatDataset(
-            RepaintP2CelebAHQClean9KDataset(split),
-            LamaDataset(split),
-            PluralisticDataset(split),
-        ),
-        "load-image": load_image,
-        "max-epochs": 150,
-    },
-    "repaint-clean-fad": {
-        "last-layer": "block2",
-        "frontend": "fad",
-        "dataset-class": RepaintCleanDataset,
-        "load-image": load_image,
-        "max-epochs": 15,
-    },
-    "repaint-clean-lfs": {
-        "last-layer": "block2",
-        "frontend": "lfs",
-        "dataset-class": RepaintCleanDataset,
-        "load-image": load_image,
-        "max-epochs": 15,
     },
 }
 

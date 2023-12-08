@@ -347,12 +347,12 @@ class RepaintP2CelebAHQCleanSmallDataset(PathSplitDataset):
         )
 
 
-class RepaintP2CelebAHQClean9KDataset(PathSplitDataset):
+class RepaintP2CelebAHQ9KDataset(PathSplitDataset):
     def __init__(self, split):
-        path_base = Path("data/repaint/p2/celebahq/fake-9k")
+        path_base = Path("data/celebahq/fake/repaint-p2-9k")
         super().__init__(
-            path_images=path_base / "clean",
-            path_masks=path_base / "ground_truth" / "mask",
+            path_images=path_base / "images",
+            path_masks=path_base / "masks",
             split=split,
         )
 
