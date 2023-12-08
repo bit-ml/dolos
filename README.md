@@ -111,7 +111,7 @@ streamlit run dolos/methods/patch_forensics/show_cross_model_performance.py
 
 ## Name
 
-The name comes from Greek mythology; according [Wikipedia](https://en.wikipedia.org/wiki/Dolos_(mythology)):
+The name comes from Greek mythology; according to [Wikipedia](https://en.wikipedia.org/wiki/Dolos_(mythology)):
 
 > Dolos (Ancient Greek: Δόλος "Deception") is the spirit of trickery. He is also a master at cunning deception, craftiness, and treachery.
 > [...]
