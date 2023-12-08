@@ -65,30 +65,39 @@ These methods are evaluated three experimental setups:
 
 To replicate the experiments:
 
+| | 
+
 ### Cross-generator experiments (§5.3)
 
-Train detection models on each locally-generated dataset:
+Train the Patch Forensics detection models on each dataset; for example:
 
 ```bash
-python dolos/methods/patch_forensics/train_full_supervision.py -c repaint-clean-00
-python dolos/methods/patch_forensics/train_full_supervision.py -c ldm-00
-python dolos/methods/patch_forensics/train_full_supervision.py -c lama-00
-python dolos/methods/patch_forensics/train_full_supervision.py -c pluralistic-00
+python dolos/methods/patch_forensics/train_full_supervision.py -c repaint-p2-9k
 ```
+
+The datasets are specified by a configuration, and can be set to one of the following:
+`repaint-p2-9k`,
+`repaint-ldm`,
+`lama`,
+`pluralistic`,
+`three-but-repaint-p2-9k`,
+`three-but-repaint-ldm`,
+`three-but-lama`,
+`three-but-pluralistic`.
 
 Predict:
 
 ```bash
-for src in repaint-clean ldm lama pluralistic; do
-    for tgt in repaint-clean ldm lama pluralistic; do
+for src in repaint-p2-9k repaint-ldm lama pluralistic three-but-repaint-p2-9k three-but-repaint-ldm three-but-lama three-but-pluralistic; do
+    for tgt in repaint-p2-9k repaint-ldm lama pluralistic; do
         for split in test; do
-            python dolos/methods/patch_forensics/predict.py -s full -t ${src}-00 -p ${tgt}-${split}
+            python dolos/methods/patch_forensics/predict.py -s full -t ${src} -p ${tgt}-${split}
         done
     done
 done
 ```
 
-Evaluate:
+Evaluate (generates Figure 6 in the paper):
 
 ```bash
 streamlit run dolos/methods/patch_forensics/show_cross_model_performance.py
