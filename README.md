@@ -12,7 +12,7 @@ For example:
 ```bash
 conda create -n dolos python=3.9
 conda activate dolos
-conda install pytorch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1 -c pytorch
+conda install pytorch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1 pytorch-cuda=11.6 -c pytorch -c nvidia
 ```
 
 Then run:
