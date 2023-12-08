@@ -8,5 +8,12 @@ setup(
     author_email="dan.oneata@gmail.com",
     description="Weakly-supervised deepfake localization",
     packages=find_packages(),
-    install_requires=["click", "dominate", "scikit-image", "streamlit"],
+    install_requires=[
+        "click",
+        "dominate",
+        "pytorch-ignite",
+        "scikit-image",
+        "streamlit",
+        "torchdata==0.5.1",
+    ],
 )
