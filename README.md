@@ -106,4 +106,5 @@ The name comes from Greek mythology; according [Wikipedia](https://en.wikipedia.
 
 ## TODO
 
-- [ ] License
+- [ ] Add license
+- [ ] Release pretrained models
