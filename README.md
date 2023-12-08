@@ -52,8 +52,8 @@ cd /path/to/dolos && ln -s /path/to/wacv_data data
 In the paper we consider three methods for weakly-supervised localization:
 
 - **Grad-CAM.**
-- **Patch Forensics.**
-- **Attention.**
+- **Patch forensics.** Implemented in `dolos/methods/patch_forensics`.
+- **Attention.** Implemented in `dolos/methods/xception_attention`.
 
 These methods are evaluated three experimental setups:
 
