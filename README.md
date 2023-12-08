@@ -53,13 +53,22 @@ In the paper we consider three methods for weakly-supervised localization:
 
 - **Grad-CAM.** TODO
 - **Patches.** Implemented in [`dolos/methods/patch_forensics`](dolos/methods/patch_forensics/).
-- **Attention.** Implemented in `dolos/methods/xception_attention`.
+- **Attention.** Implemented in [`dolos/methods/xception_attention`](dolos/methods/xception_attention/).
 
 These methods are evaluated three experimental setups:
 
 - **Setup A:** a weakly-supervised setup in which we have access to fully-generated images as fakes and, consequently, only image-level labels.
 - **Setup B:** a weakly-supervised setup in which we have access to partially-manipulated images, but only with image-level labels (no localization information).
 - **Setup C:** a fully-supervised setting in which we have access to ground-truth localization masks of partially-manipulated images.
+
+The weakly-supervised setups (A and B) are implemented by the `train_weak_supervision.py` script,
+while the fully-supervised setup (C) is implemented by the `train_full_supervision.py` script.
+For example:
+
+```bash
+ls dolos/methods/xception_attention/train_weak_supervision.py
+ls dolos/methods/xception_attention/train_full_supervision.py
+```
 
 ### Main experiments (§5.1)
 
