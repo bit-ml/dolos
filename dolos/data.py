@@ -134,155 +134,6 @@ class CelebAHQDataset(MyDataset):
         return len(self.metadata)
 
 
-class RepaintDataset(CelebAHQDataset):
-    def __init__(self, split, transform=None):
-        super().__init__(split, transform)
-
-    def get_image_path(self, i):
-        key = self.get_file_name(i)
-        folder = os.path.join(self.base_path, "inpainted", "celebahq")
-        return os.path.join(folder, "inpainted", key + ".png")
-
-
-class RepaintCleanDataset(CelebAHQDataset):
-    def __init__(self, split, transform=None):
-        super().__init__(split, transform)
-
-    def load_metadata(self, split):
-        path = os.path.join(
-            self.base_path, "data", "datasets", f"metadata-{split}.json"
-        )
-        with open(path, "r") as f:
-            return json.load(f)
-
-    def get_image_path(self, i):
-        key = self.get_file_name(i)
-        folder = os.path.join(self.base_path, "inpainted", "celebahq")
-        return os.path.join(folder, "clean_repaint", self.split, key + ".png")
-
-
-# class RepaintV2CleanDataset(TemplateDataset):
-#     def __init__(self, split):
-#         base_path = "data/repaint-v2/inpainted/celebahq-v2/clean_repaint"
-#         super().__init__(base_path, split)
-
-
-class RepaintV2CleanDataset(CelebAHQDataset):
-    def __init__(self, split, transform=None):
-        self.split = split
-        self.base_path = "data/repaint-v2"
-        self.metadata = self.load_metadata(split)
-        self.transform = transform
-
-    def load_metadata(self, split):
-        path = f"data/repaint-v2/inpainted/celebahq-v2/metadata-{split}.json"
-        with open(path, "r") as f:
-            return json.load(f)
-
-    def get_image_path(self, i):
-        key = self.get_file_name(i)
-        folder = "data/repaint-v2/inpainted/celebahq-v2"
-        return os.path.join(folder, "clean_repaint", self.split, key + ".png")
-
-
-class LamaDataset(CelebAHQDataset):
-    def __init__(self, split, transform=None):
-        super().__init__(split, transform)
-
-    def get_image_path(self, i):
-        key = self.get_file_name(i)
-        folder = "/home/doneata/src/lama/outputs/celebahq"
-        return os.path.join(folder, key + "_mask000.png")
-
-
-class PluralisticDataset(CelebAHQDataset):
-    def __init__(self, split, transform=None):
-        super().__init__(split, transform)
-
-    def get_image_path(self, i):
-        key = self.get_file_name(i)
-        folder = "/home/doneata/src/pluralistic-inpainting/results"
-        return os.path.join(folder, key + "_out_0.png")
-
-
-class LDMRepaintDataset(CelebAHQDataset):
-    def __init__(self, split, transform=None):
-        super().__init__(split, transform)
-
-    def get_image_path(self, i):
-        key = self.get_file_name(i)
-        folder = Path("data/ldm-repaint/celebahq")
-        return str(folder / self.split / (key + ".png"))
-
-
-class FaceAppDataset(MyDataset):
-    def __init__(self, split, transform=None):
-        super().__init__()
-        self.base_path = "data/faceapp"
-        self.transform = transform
-
-        if split == "valid":
-            self.split = "validation"
-        else:
-            self.split = split
-
-        self.metadata = self.load_metadata(self.split)
-
-    def load_metadata(self, split):
-        path = os.path.join(self.base_path, f"{split}.txt")
-        with open(path, "r") as f:
-            return [line.strip() for line in f.readlines()]
-
-    def get_file_name(self, i):
-        file_ = self.metadata[i]
-        split, file_ = file_.split("/")
-        file_, _ = file_.split(".")
-        return file_
-
-    def get_image_path(self, i):
-        file_ = self.metadata[i]
-        return os.path.join(self.base_path, file_)
-
-    def get_mask_path(self, i):
-        file_ = self.metadata[i]
-        split, file_ = file_.split("/")
-        return os.path.join(self.base_path, split + "_mask", file_)
-
-    def load_image(self, i):
-        image_path = self.get_image_path(i)
-        image = Image.open(image_path)
-        image = image.resize((256, 256), Image.Resampling.LANCZOS)
-        image = np.array(image)
-        return image
-
-    def load_mask(self, i):
-        mask_path = self.get_mask_path(i)
-        mask = Image.open(mask_path)
-        mask = mask.resize((256, 256), Image.Resampling.LANCZOS)
-        mask = np.array(mask)
-        mask = (mask[:, :, 0] / 255 > 0.1).astype("float")
-        return mask
-
-    def __getitem__(self, i):
-        if i >= len(self):
-            return IndexError
-
-        image = self.load_image(i)
-        mask = self.load_mask(i)
-
-        sample = dict(image=image, mask=mask)
-
-        sample["image"] = np.moveaxis(sample["image"], -1, 0)
-        sample["mask"] = np.expand_dims(sample["mask"], 0)
-
-        if self.transform is not None:
-            sample["image"] = self.transform(sample["image"])
-            sample["mask"] = self.transform(sample["mask"])
-
-        return sample
-
-    def __len__(self):
-        return len(self.metadata)
 
 
 def load_mask_keep(path):
@@ -337,19 +188,39 @@ class RepaintP2FFHQCleanDataset(PathSplitDataset):
         )
 
 
-class RepaintP2CelebAHQCleanSmallDataset(PathSplitDataset):
+class RepaintP2CelebAHQ9KDataset(PathSplitDataset):
     def __init__(self, split):
-        path_base = Path("data/repaint/p2/celebahq/small/fake")
+        path_base = Path("data/celebahq/fake/repaint-p2-9k")
         super().__init__(
-            path_images=path_base / "clean",
-            path_masks=path_base / "ground_truth" / "mask",
+            path_images=path_base / "images",
+            path_masks=path_base / "masks",
             split=split,
         )
 
 
-class RepaintP2CelebAHQ9KDataset(PathSplitDataset):
+class RepaintLDMCelebAHQDataset(PathSplitDataset):
     def __init__(self, split):
-        path_base = Path("data/celebahq/fake/repaint-p2-9k")
+        path_base = Path("data/celebahq/fake/ldm")
+        super().__init__(
+            path_images=path_base / "images",
+            path_masks=path_base / "masks",
+            split=split,
+        )
+
+
+class LamaDataset(PathSplitDataset):
+    def __init__(self, split):
+        path_base = Path("data/celebahq/fake/lama")
+        super().__init__(
+            path_images=path_base / "images",
+            path_masks=path_base / "masks",
+            split=split,
+        )
+
+
+class PluralisticDataset(PathSplitDataset):
+    def __init__(self, split):
+        path_base = Path("data/celebahq/fake/pluralistic")
         super().__init__(
             path_images=path_base / "images",
             path_masks=path_base / "masks",

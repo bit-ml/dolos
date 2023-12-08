@@ -26,8 +26,8 @@ from dolos.data import (
     ConcatDataset,
     RepaintP2CelebAHQ9KDataset,
     RepaintP2FFHQCleanDataset,
+    RepaintLDMCelebAHQDataset,
     LamaDataset,
-    LDMRepaintDataset,
     PluralisticDataset,
 )
 
@@ -87,7 +87,7 @@ CONFIGS = {
     "repaint-ldm": {
         "last-layer": "block2",
         "frontend": None,
-        "dataset-class": LDMRepaintDataset,
+        "dataset-class": RepaintLDMCelebAHQDataset,
         "load-image": load_image,
         "max-epochs": 50,
     },
@@ -105,18 +105,18 @@ CONFIGS = {
         "load-image": load_image,
         "max-epochs": 50,
     },
-    "three-but-repaint-max-epochs-150": {
+    "three-but-repaint": {
         "last-layer": "block2",
         "frontend": None,
         "dataset-class": lambda split: ConcatDataset(
             LamaDataset(split),
             PluralisticDataset(split),
-            LDMRepaintDataset(split),
+            RepaintLDMCelebAHQDataset(split),
         ),
         "load-image": load_image,
         "max-epochs": 150,
     },
-    "three-but-ldm-max-epochs-150-p2": {
+    "three-but-ldm": {
         "last-layer": "block2",
         "frontend": None,
         "dataset-class": lambda split: ConcatDataset(
@@ -127,24 +127,24 @@ CONFIGS = {
         "load-image": load_image,
         "max-epochs": 150,
     },
-    "three-but-lama-max-epochs-150-p2": {
+    "three-but-lama": {
         "last-layer": "block2",
         "frontend": None,
         "dataset-class": lambda split: ConcatDataset(
             RepaintP2CelebAHQ9KDataset(split),
             PluralisticDataset(split),
-            LDMRepaintDataset(split),
+            RepaintLDMCelebAHQDataset(split),
         ),
         "load-image": load_image,
         "max-epochs": 150,
     },
-    "three-but-pluralistic-max-epochs-150-p2": {
+    "three-but-pluralistic": {
         "last-layer": "block2",
         "frontend": None,
         "dataset-class": lambda split: ConcatDataset(
             LamaDataset(split),
             RepaintP2CelebAHQ9KDataset(split),
-            LDMRepaintDataset(split),
+            RepaintLDMCelebAHQDataset(split),
         ),
         "load-image": load_image,
         "max-epochs": 150,
