@@ -13,18 +13,12 @@ from tqdm import tqdm
 from PIL import Image
 
 from dolos.data import (
+    CelebAHQDataset,
     RepaintP2CelebAHQDataset,
-    # CelebAHQProcessedDataset,
-    # RepaintDataset,
-    # RepaintCleanDataset,
-    # RepaintV2CleanDataset,
-    # LamaDataset,
-    # LDMRepaintDataset,
-    # PluralisticDataset,
-    # RepaintP2CelebAHQCleanDataset,
-    # RepaintP2CelebAHQCleanSmallDataset,
-    # RepaintP2CelebAHQClean9KDataset,
-    # RepaintP2FFHQCleanDataset,
+    RepaintP2CelebAHQ9KDataset,
+    RepaintLDMCelebAHQDataset,
+    LamaDataset,
+    PluralisticDataset,
 )
 from dolos.methods.patch_forensics.networks.customnet import make_patch_xceptionnet
 from dolos.methods.patch_forensics.train_full_supervision import (
@@ -74,72 +68,42 @@ def get_predictions_path(
 
 
 PREDICT_CONFIGS = {
+    "celebahq-valid": {
+        "dataset": CelebAHQDataset("valid"),
+    },
+    "celebahq-test": {
+        "dataset": CelebAHQDataset("test"),
+    },
     "repaint-p2-valid": {
         "dataset": RepaintP2CelebAHQDataset("valid"),
     },
     "repaint-p2-test": {
         "dataset": RepaintP2CelebAHQDataset("test"),
     },
-    # "repaint-noisy-valid": {
-    #     "dataset": RepaintDataset("valid"),
-    # },
-    # "repaint-noisy-test": {
-    #     "dataset": RepaintDataset("test"),
-    # },
-    # "repaint-v2-clean-valid": {
-    #     "dataset": RepaintV2CleanDataset("valid"),
-    # },
-    # "repaint-v2-clean-test": {
-    #     "dataset": RepaintV2CleanDataset("test"),
-    # },
-    # "repaint-clean-valid": {
-    #     "dataset": RepaintCleanDataset("valid"),
-    # },
-    # "repaint-clean-test": {
-    #     "dataset": RepaintCleanDataset("test"),
-    # },
-    # "lama-valid": {
-    #     "dataset": LamaDataset("valid"),
-    # },
-    # "lama-test": {
-    #     "dataset": LamaDataset("test"),
-    # },
-    # "pluralistic-valid": {
-    #     "dataset": PluralisticDataset("valid"),
-    # },
-    # "pluralistic-test": {
-    #     "dataset": PluralisticDataset("test"),
-    # },
-    # "ldm-repaint-test": {
-    #     "dataset": LDMRepaintDataset("test"),
-    # },
-    # "celebahq-processed-test": {
-    #     "dataset": CelebAHQProcessedDataset("test"),
-    # },
-    # "celebahq-processed-valid": {
-    #     "dataset": CelebAHQProcessedDataset("valid"),
-    # },
-    # "repaint-p2-celebahq-clean-valid": {
-    #     "dataset": RepaintP2CelebAHQCleanDataset("valid"),
-    # },
-    # "repaint-p2-celebahq-clean-test": {
-    #     "dataset": RepaintP2CelebAHQCleanDataset("test"),
-    # },
-    # "repaint-p2-celebahq-9k-valid": {
-    #     "dataset": RepaintP2CelebAHQClean9KDataset("valid"),
-    # },
-    # "repaint-p2-celebahq-9k-test": {
-    #     "dataset": RepaintP2CelebAHQClean9KDataset("test"),
-    # },
-    # "repaint-p2-celebahq-clean-small-valid": {
-    #     "dataset": RepaintP2CelebAHQCleanSmallDataset("valid"),
-    # },
-    # "repaint-p2-celebahq-clean-small-test": {
-    #     "dataset": RepaintP2CelebAHQCleanSmallDataset("test"),
-    # },
-    # "repaint-p2-ffhq-valid": {
-    #     "dataset": RepaintP2FFHQCleanDataset("valid"),
-    # },
+    "repaint-p2-9k-valid": {
+        "dataset": RepaintP2CelebAHQ9KDataset("valid"),
+    },
+    "repaint-p2-9k-test": {
+        "dataset": RepaintP2CelebAHQ9KDataset("test"),
+    },
+    "repaint-ldm-valid": {
+        "dataset": RepaintLDMCelebAHQDataset("valid"),
+    },
+    "repaint-ldm-test": {
+        "dataset": RepaintLDMCelebAHQDataset("test"),
+    },
+    "lama-valid": {
+        "dataset": LamaDataset("valid"),
+    },
+    "lama-test": {
+        "dataset": LamaDataset("test"),
+    },
+    "pluralistic-valid": {
+        "dataset": PluralisticDataset("valid"),
+    },
+    "pluralistic-test": {
+        "dataset": PluralisticDataset("test"),
+    },
 }
 
 

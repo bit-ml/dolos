@@ -20,17 +20,13 @@ def evaluate_detection(
         return np.load(get_predictions_path(*args))["label_preds"]
 
     CELEBAHQ_FAKE_DATASETS = {
-        "repaint-clean",
-        "repaint-p2-celebahq-clean",
+        "repaint-p2",
     }
 
     assert dataset_name in CELEBAHQ_FAKE_DATASETS
 
-    if dataset_name == "repaint-p2-celebahq-clean":
-        dataset_name = dataset_name + "-small"
-
     pred_real = load_predictions(
-        method_name, supervision, train_config_name, "celebahq-processed-test"
+        method_name, supervision, train_config_name, "celebahq-test"
     )
     pred_fake = load_predictions(
         method_name, supervision, train_config_name, dataset_name + "-test"
