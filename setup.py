@@ -11,9 +11,12 @@ setup(
     install_requires=[
         "click",
         "dominate",
+        "matplotlib",
         "pytorch-ignite",
         "scikit-image",
+        "scikit-learn",
         "streamlit",
         "torchdata==0.5.1",
+        "tqdm",
     ],
 )

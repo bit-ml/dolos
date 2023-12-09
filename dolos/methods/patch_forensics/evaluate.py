@@ -9,11 +9,6 @@ from PIL import Image
 from sklearn.metrics import average_precision_score
 from tqdm import tqdm
 
-from dolos.data import (
-    CelebAHQProcessedDataset,
-    RepaintCleanDataset,
-    RepaintP2CelebAHQCleanDataset,
-)
 from dolos.methods.patch_forensics.predict import get_predictions_path, PREDICT_CONFIGS
 from dolos.metrics.iou_ignite import iou
 

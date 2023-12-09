@@ -1,15 +1,5 @@
 import click
-import json
-import pdb
 
-import numpy as np
-import streamlit as st
-
-from PIL import Image
-from tqdm import tqdm
-from sklearn.metrics import average_precision_score
-
-from dolos.methods.xception_attention.predict import get_predictions_path, PREDICT_CONFIGS
 from dolos.methods.patch_forensics.evaluate import evaluate_detection, evaluate_localisation
 
 
@@ -21,7 +11,7 @@ from dolos.methods.patch_forensics.evaluate import evaluate_detection, evaluate_
 def main(supervision, train_config_name, dataset_name, to_visualize=False):
     method_name = "xception-attention"
     print(supervision, train_config_name)
-    if supervision == "weak" and dataset_name in {"repaint-clean", "repaint-p2-celebahq-clean"}:
+    if supervision == "weak" and dataset_name == "repaint-p2":
         evaluate_detection(method_name, supervision, train_config_name, dataset_name, to_visualize)
     evaluate_localisation(method_name, supervision, train_config_name, dataset_name, to_visualize)
     print()

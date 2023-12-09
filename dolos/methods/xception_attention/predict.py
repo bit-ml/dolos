@@ -13,19 +13,12 @@ from PIL import Image
 import matplotlib.pyplot as plt
 import streamlit as st
 
-from matplotlib import cm
-
 from dolos.methods.xception_attention.networks.xception_attention import (
     load_xception_attention_model,
 )
 from dolos.methods.xception_attention.train_full_supervision import (
     MASK_SIZE,
     load_image,
-)
-from dolos.data import (
-    RepaintCleanDataset,
-    RepaintV2CleanDataset,
-    CelebAHQProcessedDataset,
 )
 from dolos.methods.patch_forensics.predict import (
     get_best_model_path,
