@@ -62,7 +62,7 @@ mkdir assets
 wget https://github.com/JStehouwer/FFD_CVPR2020/releases/download/v2.0/xcp_reg.tar -O assets/xcp_reg.tar
 ```
 
-These methods are evaluated three experimental setups:
+These three methods are evaluated on three experimental setups:
 
 - **Setup A:** a weakly-supervised setup in which we have access to fully-generated images as fakes and, consequently, only image-level labels.
 - **Setup B:** a weakly-supervised setup in which we have access to partially-manipulated images, but only with image-level labels (no localization information).
