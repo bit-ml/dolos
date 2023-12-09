@@ -80,7 +80,7 @@ To replicate the experiments:
 | --- | --- | --- | --- |
 | Setup A | | | |
 | Setup B | | | |
-| Setup C | | | |
+| Setup C | | | [`run-attention-setup-c.sh`](dolos/scripts/run-attention-setup-c.sh) |
 
 ### Cross-generator experiments (§5.3)
 

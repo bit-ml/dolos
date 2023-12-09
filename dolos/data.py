@@ -168,22 +168,22 @@ class PathSplitDataset:
         return len(self.files)
 
 
-class RepaintP2CelebAHQCleanDataset(PathSplitDataset):
+class RepaintP2CelebAHQDataset(PathSplitDataset):
     def __init__(self, split):
-        path_base = Path("data/repaint/p2/celebahq/fake")
+        path_base = Path("data/celebahq/fake/repaint-p2")
         super().__init__(
-            path_images=path_base / "clean",
-            path_masks=path_base / "ground_truth" / "mask",
+            path_images=path_base / "images",
+            path_masks=path_base / "masks",
             split=split,
         )
 
 
-class RepaintP2FFHQCleanDataset(PathSplitDataset):
+class RepaintP2FFHQDataset(PathSplitDataset):
     def __init__(self, split):
-        path_base = Path("data/repaint/p2/ffhq/fake")
+        path_base = Path("data/ffhq/fake/repaint-p2")
         super().__init__(
-            path_images=path_base / "clean",
-            path_masks=path_base / "ground_truth" / "mask",
+            path_images=path_base / "images",
+            path_masks=path_base / "masks",
             split=split,
         )
 

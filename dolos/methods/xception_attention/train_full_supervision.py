@@ -25,7 +25,7 @@ from dolos.methods.xception_attention.networks.xception_attention import (
     load_xception_attention_model,
 )
 from dolos.metrics.iou_ignite import IOU
-from dolos.data import RepaintCleanDataset, RepaintP2CelebAHQCleanDataset, RepaintP2FFHQCleanDataset
+from dolos.data import RepaintP2CelebAHQDataset, RepaintP2FFHQDataset
 
 
 IMAGE_SIZE = (299, 299)
@@ -64,18 +64,13 @@ def load_image(dataset, i, *args, **kwargs):
 
 
 CONFIGS = {
-    "00": {
-        "dataset-class": RepaintCleanDataset,
+    "repaint-p2": {
+        "dataset-class": RepaintP2CelebAHQDataset,
         "load-image": load_image,
         "max-epochs": 15,
     },
-    "repaint-p2-celebahq-clean": {
-        "dataset-class": RepaintP2CelebAHQCleanDataset,
-        "load-image": load_image,
-        "max-epochs": 15,
-    },
-    "repaint-p2-ffhq-clean": {
-        "dataset-class": RepaintP2FFHQCleanDataset,
+    "repaint-p2-ffhq": {
+        "dataset-class": RepaintP2FFHQDataset,
         "load-image": load_image,
         "max-epochs": 30,
     },
@@ -90,8 +85,7 @@ def main(config_name):
 
     config = CONFIGS[config_name]
 
-    # model = load_xception_attention_model(init="pretrained")
-    model = load_xception_attention_model(init="random")
+    model = load_xception_attention_model(init="pretrained")
     model.to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=3e-4)
 
