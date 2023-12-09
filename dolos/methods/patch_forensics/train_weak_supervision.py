@@ -90,7 +90,7 @@ def output_transform_pooled_avg(pred, true):
 
 
 CONFIGS = {
-    "setup-a-repaint-p2": {
+    "setup-a": {
         "dataset-real": CelebAHQDataset,
         "dataset-fake": P2CelebAHQDataset,
         "load-image": load_image_0,
@@ -98,7 +98,7 @@ CONFIGS = {
         "frontend": None,
         "output-transform": output_transform_expand,
     },
-    "setup-b-repaint-p2": {
+    "setup-b": {
         "dataset-real": CelebAHQDataset,
         "dataset-fake": RepaintP2CelebAHQ9KDataset,
         "load-image": load_image_0,
