@@ -64,12 +64,12 @@ def load_image(dataset, i, *args, **kwargs):
 
 
 CONFIGS = {
-    "repaint-p2": {
+    "setup-c": {
         "dataset-class": RepaintP2CelebAHQDataset,
         "load-image": load_image,
         "max-epochs": 15,
     },
-    "repaint-p2-ffhq": {
+    "setup-c-ffhq": {
         "dataset-class": RepaintP2FFHQDataset,
         "load-image": load_image,
         "max-epochs": 30,
