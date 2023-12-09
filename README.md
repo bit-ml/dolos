@@ -79,7 +79,7 @@ ls dolos/methods/xception_attention/train_full_supervision.py
 
 ### Main experiments (§5.1)
 
-TODO
+WIP
 
 To replicate the experiments:
 
@@ -88,6 +88,10 @@ To replicate the experiments:
 | Setup A | | [`run-patches-setup-a.sh`](dolos/scripts/run-patches-setup-a.sh) | [`run-attention-setup-a.sh`](dolos/scripts/run-attention-setup-a.sh) |
 | Setup B | | [`run-patches-setup-b.sh`](dolos/scripts/run-patches-setup-b.sh) | [`run-attention-setup-b.sh`](dolos/scripts/run-attention-setup-b.sh) |
 | Setup C | | [`run-patches-setup-c.sh`](dolos/scripts/run-patches-setup-c.sh) | [`run-attention-setup-c.sh`](dolos/scripts/run-attention-setup-c.sh) |
+
+### Cross-dataset experiments (§5.2)
+
+TODO
 
 ### Cross-generator experiments (§5.3)
 
@@ -144,3 +148,4 @@ The name comes from Greek mythology; according to [Wikipedia](https://en.wikiped
 - [ ] Add example on how to run on a different dataset.
 - [ ] Are the masks in the dataset given in the "keep" format (that is, `0` for the manipulated region and `1` for the original region)?
 - [ ] We are missing the small test sets for detection?
+- [ ] Add scripts to replicate cross-dataset experiments.
