@@ -54,6 +54,13 @@ In the paper we consider three methods for weakly-supervised localization:
 - **Grad-CAM.** TODO
 - **Patches.** Implemented in [`dolos/methods/patch_forensics`](dolos/methods/patch_forensics/).
 - **Attention.** Implemented in [`dolos/methods/xception_attention`](dolos/methods/xception_attention/).
+For training, we initialize from the pretrained model provided by the authors.
+The weights can be downloaded as follows:
+
+```bash
+mkdir assets
+wget https://github.com/JStehouwer/FFD_CVPR2020/releases/download/v2.0/xcp_reg.tar -O assets/xcp_reg.tar
+```
 
 These methods are evaluated three experimental setups:
 
