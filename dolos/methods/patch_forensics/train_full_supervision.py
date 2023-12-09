@@ -24,8 +24,9 @@ from dolos.methods.patch_forensics.networks.customnet import make_patch_xception
 from dolos.metrics.iou_ignite import IOU
 from dolos.data import (
     ConcatDataset,
+    RepaintP2FFHQDataset,
+    RepaintP2CelebAHQDataset,
     RepaintP2CelebAHQ9KDataset,
-    RepaintP2FFHQCleanDataset,
     RepaintLDMCelebAHQDataset,
     LamaDataset,
     PluralisticDataset,
@@ -70,6 +71,13 @@ def load_image(dataset, i, *args, **kwargs):
 
 
 CONFIGS = {
+    "repaint-p2": {
+        "last-layer": "block2",
+        "frontend": None,
+        "dataset-class": RepaintP2CelebAHQDataset,
+        "load-image": load_image,
+        "max-epochs": 50,
+    },
     "repaint-p2-9k": {
         "last-layer": "block2",
         "frontend": None,
@@ -80,7 +88,7 @@ CONFIGS = {
     "repaint-p2-ffhq": {
         "last-layer": "block2",
         "frontend": None,
-        "dataset-class": RepaintP2FFHQCleanDataset,
+        "dataset-class": RepaintP2FFHQDataset,
         "load-image": load_image,
         "max-epochs": 50,
     },
