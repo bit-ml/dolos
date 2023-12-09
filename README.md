@@ -85,9 +85,9 @@ To replicate the experiments:
 
 | | Grad-CAM | Patches | Attention |
 | --- | --- | --- | --- |
-| Setup A | | | [`run-attention-setup-a.sh`](dolos/scripts/run-attention-setup-a.sh) |
-| Setup B | | | [`run-attention-setup-b.sh`](dolos/scripts/run-attention-setup-b.sh) |
-| Setup C | | | [`run-attention-setup-c.sh`](dolos/scripts/run-attention-setup-c.sh) |
+| Setup A | | [`run-patches-setup-a.sh`](dolos/scripts/run-patches-setup-a.sh) | [`run-attention-setup-a.sh`](dolos/scripts/run-attention-setup-a.sh) |
+| Setup B | | [`run-patches-setup-b.sh`](dolos/scripts/run-patches-setup-b.sh) | [`run-attention-setup-b.sh`](dolos/scripts/run-attention-setup-b.sh) |
+| Setup C | | [`run-patches-setup-c.sh`](dolos/scripts/run-patches-setup-c.sh) | [`run-attention-setup-c.sh`](dolos/scripts/run-attention-setup-c.sh) |
 
 ### Cross-generator experiments (§5.3)
 

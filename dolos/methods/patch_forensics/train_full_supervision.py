@@ -71,10 +71,17 @@ def load_image(dataset, i, *args, **kwargs):
 
 
 CONFIGS = {
-    "repaint-p2": {
+    "setup-c": {
         "last-layer": "block2",
         "frontend": None,
         "dataset-class": RepaintP2CelebAHQDataset,
+        "load-image": load_image,
+        "max-epochs": 50,
+    },
+    "setup-c-ffhq": {
+        "last-layer": "block2",
+        "frontend": None,
+        "dataset-class": RepaintP2FFHQDataset,
         "load-image": load_image,
         "max-epochs": 50,
     },
@@ -82,13 +89,6 @@ CONFIGS = {
         "last-layer": "block2",
         "frontend": None,
         "dataset-class": RepaintP2CelebAHQ9KDataset,
-        "load-image": load_image,
-        "max-epochs": 50,
-    },
-    "repaint-p2-ffhq": {
-        "last-layer": "block2",
-        "frontend": None,
-        "dataset-class": RepaintP2FFHQDataset,
         "load-image": load_image,
         "max-epochs": 50,
     },
@@ -201,7 +201,7 @@ def get_mask_size(config):
 
 
 @click.command()
-@click.option("-c", "--config", "config_name", required=True)
+@click.argument("config_name")
 def main(config_name):
     assert config_name in CONFIGS
     device = "cuda"
