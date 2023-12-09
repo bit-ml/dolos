@@ -28,123 +28,24 @@ from dolos.methods.xception_attention.networks.xception_attention import load_xc
 from dolos.methods.xception_attention.train_full_supervision import load_image
 from dolos.metrics.iou_ignite import IOU
 from dolos.data import (
-    CelebAHQProcessedDataset,
-    FFHQProcessedDataset,
+    CelebAHQDataset,
     P2CelebAHQDataset,
-    P2FFHQDataset,
-    RepaintCleanDataset,
-    RepaintP2CelebAHQCleanSmallDataset,
+    RepaintP2CelebAHQ9KDataset,
 )
-
-# a · FFHQ     vs P2 (FFHQ)
-# b · CelebAHQ vs P2 (CelebAHQ)
-# c · CelebAHQ vs Repaint (CelebAHQ)
 
 
 CONFIGS = {
-    "setup-a-00": {
-        "dataset-real": FFHQProcessedDataset,
-        "dataset-fake": P2FFHQDataset,
-        "load-image": load_image,
-        "λ": 0.01,
-    },
-    "setup-a-01": {
-        "dataset-real": FFHQProcessedDataset,
-        "dataset-fake": P2FFHQDataset,
-        "load-image": load_image,
-        "λ": 0.1,
-    },
-    "setup-a-01-100": {
-        "dataset-real": FFHQProcessedDataset,
-        "dataset-fake": P2FFHQDataset,
-        "load-image": load_image,
-        "λ": 0.1,
-        "max-epochs": 100,
-    },
-    "setup-a-02": {
-        "dataset-real": FFHQProcessedDataset,
-        "dataset-fake": P2FFHQDataset,
-        "load-image": load_image,
-        "λ": 1.0,
-    },
-    "setup-b-00": {
-        "dataset-real": CelebAHQProcessedDataset,
-        "dataset-fake": P2CelebAHQDataset,
-        "load-image": load_image,
-        "λ": 0.01,
-    },
-    "setup-b-01": {
-        "dataset-real": CelebAHQProcessedDataset,
-        "dataset-fake": P2CelebAHQDataset,
-        "load-image": load_image,
-        "λ": 0.1,
-    },
-    "setup-b-01-100": {
-        "dataset-real": CelebAHQProcessedDataset,
-        "dataset-fake": P2CelebAHQDataset,
-        "load-image": load_image,
-        "λ": 0.1,
-        "max-epochs": 100,
-    },
-    "setup-b-02": {
-        "dataset-real": CelebAHQProcessedDataset,
-        "dataset-fake": P2CelebAHQDataset,
-        "load-image": load_image,
-        "λ": 1.0,
-    },
-    "setup-c-00": {
-        "dataset-real": CelebAHQProcessedDataset,
-        "dataset-fake": RepaintCleanDataset,
-        "load-image": load_image,
-        "λ": 0.01,
-    },
-    "setup-c-01": {
-        "dataset-real": CelebAHQProcessedDataset,
-        "dataset-fake": RepaintCleanDataset,
-        "load-image": load_image,
-        "λ": 0.1,
-    },
-    "setup-c-01-100": {
-        "dataset-real": CelebAHQProcessedDataset,
-        "dataset-fake": RepaintCleanDataset,
-        "load-image": load_image,
-        "λ": 0.1,
-        "max-epochs": 100,
-    },
-    "setup-c-02": {
-        "dataset-real": CelebAHQProcessedDataset,
-        "dataset-fake": RepaintCleanDataset,
-        "load-image": load_image,
-        "λ": 1.0,
-    },
-    # new experiments for the WACV paper
-    "setup-a-p2-celebahq-full": {
-        "dataset-real": CelebAHQProcessedDataset,
-        "dataset-fake": P2CelebAHQDataset,
-        "load-image": load_image,
-        "λ": 0.01,
-        "max-epochs": 15,
-        "batch-size": 16,
-    },
-    "setup-b-p2-celebahq-partial": {
-        "dataset-real": CelebAHQProcessedDataset,
-        "dataset-fake": RepaintP2CelebAHQCleanSmallDataset,
-        "load-image": load_image,
-        "λ": 0.01,
-        "max-epochs": 15,
-        "batch-size": 16,
-    },
-    "setup-a-p2-celebahq-full-λ-1": {
-        "dataset-real": CelebAHQProcessedDataset,
+    "setup-a-repaint-p2": {
+        "dataset-real": CelebAHQDataset,
         "dataset-fake": P2CelebAHQDataset,
         "load-image": load_image,
         "λ": 1,
         "max-epochs": 15,
         "batch-size": 16,
     },
-    "setup-b-p2-celebahq-partial-λ-1": {
-        "dataset-real": CelebAHQProcessedDataset,
-        "dataset-fake": RepaintP2CelebAHQCleanSmallDataset,
+    "setup-b-repaint-p2": {
+        "dataset-real": CelebAHQDataset,
+        "dataset-fake": RepaintP2CelebAHQ9KDataset,
         "load-image": load_image,
         "λ": 1,
         "max-epochs": 15,

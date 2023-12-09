@@ -22,11 +22,9 @@ from dolos.methods.patch_forensics.networks.customnet import make_patch_xception
 from dolos.methods.patch_forensics.networks.netutils import init_net
 from dolos.metrics.iou_ignite import IOU
 from dolos.data import (
-    CelebAHQProcessedDataset,
-    FFHQProcessedDataset,
+    CelebAHQDataset,
     P2CelebAHQDataset,
-    P2FFHQDataset,
-    RepaintCleanDataset,
+    RepaintP2CelebAHQ9KDataset,
 )
 from dolos.methods.patch_forensics.train_full_supervision import (
     IMAGE_SIZE,
@@ -92,69 +90,21 @@ def output_transform_pooled_avg(pred, true):
 
 
 CONFIGS = {
-    "setup-a-00": {
-        "dataset-real": FFHQProcessedDataset,
-        "dataset-fake": P2FFHQDataset,
-        "load-image": load_image_full,
-        "last-layer": "block2",
-        "frontend": None,
-        "output-transform": output_transform_expand,
-    },
-    "setup-b-00": {
-        "dataset-real": CelebAHQProcessedDataset,
-        "dataset-fake": P2CelebAHQDataset,
-        "load-image": load_image_full,
-        "last-layer": "block2",
-        "frontend": None,
-        "output-transform": output_transform_expand,
-    },
-    "setup-c-00": {
-        "dataset-real": CelebAHQProcessedDataset,
-        "dataset-fake": RepaintCleanDataset,
-        "load-image": load_image_full,
-        "last-layer": "block2",
-        "frontend": None,
-        "output-transform": output_transform_expand,
-    },
-    "setup-a-01": {
-        "dataset-real": FFHQProcessedDataset,
-        "dataset-fake": P2FFHQDataset,
-        "load-image": load_image_0,
-        "last-layer": "block2",
-        "frontend": None,
-        "output-transform": output_transform_expand,
-    },
-    "setup-b-01": {
-        "dataset-real": CelebAHQProcessedDataset,
+    "setup-a-repaint-p2": {
+        "dataset-real": CelebAHQDataset,
         "dataset-fake": P2CelebAHQDataset,
         "load-image": load_image_0,
         "last-layer": "block2",
         "frontend": None,
         "output-transform": output_transform_expand,
     },
-    "setup-c-01": {
-        "dataset-real": CelebAHQProcessedDataset,
-        "dataset-fake": RepaintCleanDataset,
+    "setup-b-repaint-p2": {
+        "dataset-real": CelebAHQDataset,
+        "dataset-fake": RepaintP2CelebAHQ9KDataset,
         "load-image": load_image_0,
         "last-layer": "block2",
         "frontend": None,
         "output-transform": output_transform_expand,
-    },
-    "setup-c-01-pooled-max": {
-        "dataset-real": CelebAHQProcessedDataset,
-        "dataset-fake": RepaintCleanDataset,
-        "load-image": load_image_0,
-        "last-layer": "block2",
-        "frontend": None,
-        "output-transform": output_transform_pooled_max,
-    },
-    "setup-c-01-pooled-avg": {
-        "dataset-real": CelebAHQProcessedDataset,
-        "dataset-fake": RepaintCleanDataset,
-        "load-image": load_image_0,
-        "last-layer": "block2",
-        "frontend": None,
-        "output-transform": output_transform_pooled_avg,
     },
 }
 

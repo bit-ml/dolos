@@ -64,12 +64,11 @@ def evaluate_localisation(
 
         true_sm = Image.fromarray(true_lg).resize(pred_sm.shape, resample=Image.Resampling.NEAREST)
         true_sm = np.array(true_sm)
-        # true_sm = (true_sm > 0.5).astype("float")
 
         iou_lg_score = iou(pred_lg_binary.astype("bool"), true_lg.astype("bool"))
-        accuracy_lg_score = np.mean(pred_lg_binary == true_lg)
-
         iou_sm_score = iou(pred_sm_binary.astype("bool"), true_sm.astype("bool"))
+
+        accuracy_lg_score = np.mean(pred_lg_binary == true_lg)
         accuracy_sm_score = np.mean(pred_sm_binary == true_sm)
 
         if to_visualize:
@@ -89,8 +88,8 @@ def evaluate_localisation(
 
         return {
             "iou-lg": iou_lg_score,
-            "accuracy-lg": accuracy_lg_score,
             "iou-sm": iou_sm_score,
+            "accuracy-lg": accuracy_lg_score,
             "accuracy-sm": accuracy_sm_score,
         }
 

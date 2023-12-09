@@ -85,8 +85,8 @@ To replicate the experiments:
 
 | | Grad-CAM | Patches | Attention |
 | --- | --- | --- | --- |
-| Setup A | | | |
-| Setup B | | | |
+| Setup A | | | [`run-attention-setup-a.sh`](dolos/scripts/run-attention-setup-a.sh) |
+| Setup B | | | [`run-attention-setup-b.sh`](dolos/scripts/run-attention-setup-b.sh) |
 | Setup C | | | [`run-attention-setup-c.sh`](dolos/scripts/run-attention-setup-c.sh) |
 
 ### Cross-generator experiments (§5.3)
@@ -142,3 +142,4 @@ The name comes from Greek mythology; according to [Wikipedia](https://en.wikiped
 - [ ] Incorporate the Grad-CAM code.
 - [ ] Scripts to run the main experiments.
 - [ ] Add example on how to run on a different dataset.
+- [ ] Are the masks in the dataset given in the "keep" format (that is, `0` for the manipulated region and `1` for the original region)?
