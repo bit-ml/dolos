@@ -139,13 +139,3 @@ The name comes from Greek mythology; according to [Wikipedia](https://en.wikiped
 
 ## License
 
-## TODO
-
-- [ ] Add license
-- [ ] Release pretrained models
-- [ ] Incorporate the Grad-CAM code.
-- [ ] Scripts to run the main experiments.
-- [ ] Add example on how to run on a different dataset.
-- [ ] Are the masks in the dataset given in the "keep" format (that is, `0` for the manipulated region and `1` for the original region)?
-- [ ] We are missing the small test sets for detection?
-- [ ] Add scripts to replicate cross-dataset experiments.
