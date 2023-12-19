@@ -23,8 +23,11 @@ from dolos.methods.patch_forensics.networks.netutils import init_net
 from dolos.metrics.iou_ignite import IOU
 from dolos.data import (
     CelebAHQDataset,
+    FFHQDataset,
     P2CelebAHQDataset,
+    P2FFHQDataset,
     RepaintP2CelebAHQ9KDataset,
+    RepaintP2FFHQDataset,
 )
 from dolos.methods.patch_forensics.train_full_supervision import (
     IMAGE_SIZE,
@@ -101,6 +104,23 @@ CONFIGS = {
     "setup-b": {
         "dataset-real": CelebAHQDataset,
         "dataset-fake": RepaintP2CelebAHQ9KDataset,
+        "load-image": load_image_0,
+        "last-layer": "block2",
+        "frontend": None,
+        "output-transform": output_transform_expand,
+    },
+    # Cross-dataset experiments
+    "setup-a-ffhq": {
+        "dataset-real": FFHQDataset,
+        "dataset-fake": P2FFHQDataset,
+        "load-image": load_image_0,
+        "last-layer": "block2",
+        "frontend": None,
+        "output-transform": output_transform_expand,
+    },
+    "setup-b-ffhq": {
+        "dataset-real": FFHQDataset,
+        "dataset-fake": RepaintP2FFHQDataset,
         "load-image": load_image_0,
         "last-layer": "block2",
         "frontend": None,

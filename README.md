@@ -83,9 +83,8 @@ ls dolos/methods/xception_attention/train_full_supervision.py
 
 ### Main experiments (§5.1)
 
-WIP
-
-To replicate the experiments:
+In this set of experiments we evaluate the localization capabilities of the three methods in the three setups.
+The table below contains links to the scripts that can replicate the experiments in Table 2 from our paper:
 
 | | Grad-CAM | Patches | Attention |
 | --- | --- | --- | --- |
@@ -95,12 +94,21 @@ To replicate the experiments:
 
 ### Cross-dataset experiments (§5.2)
 
-TODO
+For this setup,
+we train the Patches model on one source dataset (FFHQ) and evaluate it on another target dataset (CelebA-HQ);
+note that the generation method is kept fixed (P2 diffusion).
+Below are the scripts needed to obtain results for the three setups, corresponding to Table 3 in the paper:
+
+- Setup A: [`run-patches-setup-a-ffhq.sh`](dolos/scripts/run-patches-setup-a-ffhq.sh)
+- Setup B: [`run-patches-setup-b-ffhq.sh`](dolos/scripts/run-patches-setup-b-ffhq.sh)
+- Setup C: [`run-patches-setup-c-ffhq.sh`](dolos/scripts/run-patches-setup-c-ffhq.sh)
 
 ### Cross-generator experiments (§5.3)
 
-Train the Patch Forensics detection models on each dataset; for example:
+Here we evaluate the Patches detection model across multiple combinations of train-test datasets.
+For these experiments, we vary the generation method, but keep the source dataset fixed (CelebA-HQ)
 
+To train on a given dataset:
 ```bash
 python dolos/methods/patch_forensics/train_full_supervision.py -c repaint-p2-9k
 ```
@@ -115,7 +123,7 @@ The datasets are specified by a configuration, and can be set to one of the foll
 `three-but-lama`,
 `three-but-pluralistic`.
 
-Predict:
+To obtain predictions for all combinations:
 
 ```bash
 for src in repaint-p2-9k repaint-ldm lama pluralistic three-but-repaint-p2-9k three-but-repaint-ldm three-but-lama three-but-pluralistic; do
@@ -127,7 +135,7 @@ for src in repaint-p2-9k repaint-ldm lama pluralistic three-but-repaint-p2-9k th
 done
 ```
 
-Evaluate (generates Figure 6 in the paper):
+Finally, to obtain the evaluation metrics and generate Figure 6 in the paper:
 
 ```bash
 streamlit run dolos/methods/patch_forensics/show_cross_model_performance.py
