@@ -47,6 +47,10 @@ set a symbolic link in the root of this repository; for example:
 cd /path/to/dolos && ln -s /path/to/wacv_data data
 ```
 
+**Note.**
+The masks are given as black-and-with images, where black (`0`) means _fake_ and (white) `255` means _real_.
+However, the models below adopt the opposite convention: `0` means _real_ and `1` means _fake_.
+
 ## Experiments
 
 In the paper we consider three methods for weakly-supervised localization:
@@ -138,4 +142,3 @@ The name comes from Greek mythology; according to [Wikipedia](https://en.wikiped
 > Dolos became known for his skill when he attempted to make a fraudulent copy statue of Aletheia (Veritas), in order to trick people into thinking they were seeing the real statue.
 
 ## License
-
