@@ -88,9 +88,9 @@ The table below contains links to the scripts that can replicate the experiments
 
 | | Grad-CAM | Patches | Attention |
 | --- | --- | --- | --- |
-| Setup A | | [`run-patches-setup-a.sh`](dolos/scripts/run-patches-setup-a.sh) | [`run-attention-setup-a.sh`](dolos/scripts/run-attention-setup-a.sh) |
-| Setup B | | [`run-patches-setup-b.sh`](dolos/scripts/run-patches-setup-b.sh) | [`run-attention-setup-b.sh`](dolos/scripts/run-attention-setup-b.sh) |
-| Setup C | | [`run-patches-setup-c.sh`](dolos/scripts/run-patches-setup-c.sh) | [`run-attention-setup-c.sh`](dolos/scripts/run-attention-setup-c.sh) |
+| Setup A | [`run-grad-cam-setup-a.sh`](dolos/scripts/run-grad-cam-setup-a.sh)| [`run-patches-setup-a.sh`](dolos/scripts/run-patches-setup-a.sh) | [`run-attention-setup-a.sh`](dolos/scripts/run-attention-setup-a.sh) |
+| Setup B | [`run-grad-cam-setup-b.sh`](dolos/scripts/run-grad-cam-setup-b.sh)| [`run-patches-setup-b.sh`](dolos/scripts/run-patches-setup-b.sh) | [`run-attention-setup-b.sh`](dolos/scripts/run-attention-setup-b.sh) |
+| Setup C | [`run-grad-cam-setup-c.sh`](dolos/scripts/run-grad-cam-setup-c.sh)| [`run-patches-setup-c.sh`](dolos/scripts/run-patches-setup-c.sh) | [`run-attention-setup-c.sh`](dolos/scripts/run-attention-setup-c.sh) |
 
 ### Cross-dataset experiments (§5.2)
 
