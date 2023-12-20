@@ -3,3 +3,4 @@ assets
 output
 data
 *egg-info
+.vscode
