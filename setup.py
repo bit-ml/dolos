@@ -11,11 +11,13 @@ setup(
     install_requires=[
         "click",
         "dominate",
+        "grad-cam",
         "matplotlib",
         "pytorch-ignite",
         "scikit-image",
         "scikit-learn",
         "streamlit",
+        "timm",
         "torchdata==0.5.1",
         "tqdm",
     ],

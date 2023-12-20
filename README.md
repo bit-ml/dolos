@@ -55,7 +55,7 @@ However, the models below adopt the opposite convention: `0` means _real_ and `1
 
 In the paper we consider three methods for weakly-supervised localization:
 
-- **Grad-CAM.** TODO
+- **Grad-CAM.** Implemented in [`dolos/methods/grad_cam`](dolos/methods/grad_cam/).
 - **Patches.** Implemented in [`dolos/methods/patch_forensics`](dolos/methods/patch_forensics/).
 - **Attention.** Implemented in [`dolos/methods/xception_attention`](dolos/methods/xception_attention/).
 For training, we initialize from the pretrained model provided by the authors.
