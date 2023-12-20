@@ -11,7 +11,10 @@ from dolos.methods.patch_forensics.evaluate import evaluate_detection, evaluate_
 def main(supervision, train_config_name, dataset_name, to_visualize=False):
     method_name = "xception-attention"
     print(supervision, train_config_name)
-    if supervision == "weak" and dataset_name == "repaint-p2":
+    if supervision == "weak" and dataset_name in {
+        "repaint-clean",
+        "repaint-p2-celebahq-clean",
+    }:
         evaluate_detection(method_name, supervision, train_config_name, dataset_name, to_visualize)
     evaluate_localisation(method_name, supervision, train_config_name, dataset_name, to_visualize)
     print()
