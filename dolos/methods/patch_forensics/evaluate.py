@@ -142,10 +142,7 @@ def evaluate_localisation(
 def main(supervision, train_config_name, dataset_name, to_visualize=False):
     method_name = "patch-forensics"
     print(supervision, train_config_name, dataset_name)
-    if supervision == "weak" and dataset_name in {
-        "repaint-clean",
-        "repaint-p2-celebahq-clean",
-    }:
+    if supervision == "weak" and dataset_name == "repaint-p2":
         evaluate_detection(
             method_name, supervision, train_config_name, dataset_name, to_visualize
         )

@@ -80,7 +80,7 @@ def main(
     dataset = PREDICT_CONFIGS[predict_config_name]["dataset"]
     device = "cuda"
 
-    method_name = "patch-forensics"
+    method_name = "grad-cam"
     model = load_model(supervision, train_config_name, train_config, device)
 
     num_images = len(dataset)
