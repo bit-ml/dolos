@@ -1,6 +1,8 @@
-import click
 import json
 import pdb
+import random
+
+import click
 
 import numpy as np
 import streamlit as st
@@ -11,6 +13,10 @@ from tqdm import tqdm
 
 from dolos.methods.patch_forensics.predict import get_predictions_path, PREDICT_CONFIGS
 from dolos.metrics.iou_ignite import iou
+
+
+SEED = 1337
+random.seed(SEED)
 
 
 def evaluate_detection(
@@ -25,19 +31,32 @@ def evaluate_detection(
 
     assert dataset_name in CELEBAHQ_FAKE_DATASETS
 
-    pred_real = load_predictions(
-        method_name, supervision, train_config_name, "celebahq-test"
-    )
-    pred_fake = load_predictions(
-        method_name, supervision, train_config_name, dataset_name + "-test"
-    )
+    args = method_name, supervision, train_config_name
+    pred_real = load_predictions(*args, "celebahq-test")
+    pred_fake = load_predictions(*args, dataset_name + "-test")
 
-    true = np.hstack((np.zeros(len(pred_real)), np.ones(len(pred_fake))))
-    pred = np.hstack((pred_real, pred_fake))
+    num_real = len(pred_real)
+    num_fake = len(pred_fake)
+    num = min(num_real, num_fake)
 
-    ap = average_precision_score(true, pred)
+    def np_sample(xs, n):
+        return np.array(random.sample(list(xs), n))
+
+    def compute_ap1():
+        pred_real_ss = np_sample(pred_real, num)
+        pred_fake_ss = np_sample(pred_fake, num)
+
+        true = np.hstack((np.zeros(num), np.ones(num)))
+        pred = np.hstack((pred_real_ss, pred_fake_ss))
+
+        return average_precision_score(true, pred)
+
+    aps = [100 * compute_ap1() for _ in range(5)]
+    ap_mean = np.mean(aps)
+    ap_std = np.std(aps)
+
     print("Detecion · average precision:")
-    print("{:.2f}".format(100 * ap))
+    print("{:.2f}±{:.1f}".format(ap_mean, 2 * ap_std))
 
 
 def evaluate_localisation(
