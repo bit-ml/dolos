@@ -25,13 +25,48 @@ from dolos.methods.patch_forensics.predict import (
     get_predictions_path,
     save_pred_as_img,
 )
-from dolos.methods.grad_cam.model import xceptionnet
+from dolos.methods.grad_cam.model import xceptionnet, xceptionnetfcn
+
+
+LOADERS = {
+    "weak": xceptionnet,
+    "full": xceptionnetfcn,
+}
 
 
 def load_model(supervision, train_config_name, config, device):
     model_dir = f"output/grad-cam/{supervision}-supervision/{train_config_name}"
     model_path = get_best_model_path(model_dir)
-    return xceptionnet(device, filename=model_path)
+    return LOADERS[supervision](device, filename=model_path)
+
+
+class GetLabelAndMaskPredWeak:
+    def __init__(self, model):
+        self.targets = [ClassifierOutputTarget(1)]
+        self.target_layers = [model.block11]
+        self.cam = GradCAM(model=model, target_layers=self.target_layers)
+
+    def __call__(self, image):
+        mask_pred = self.cam(input_tensor=image.unsqueeze(0), targets=self.targets)
+        mask_pred = mask_pred[0]
+        # mask_pred = Image.fromarray(mask_pred).resize((256, 256), Image.BILINEAR)
+        # mask_pred = np.array(mask_pred)
+        mask_pred = mask_pred / mask_pred.max()
+        label_pred = self.cam.outputs[0, 1]
+        return label_pred, mask_pred
+
+
+class GetLabelAndMaskPredFull:
+    def __init__(self, model):
+        self.model = model
+
+    def __call__(self, image):
+        mask_pred = self.model(image.unsqueeze(0))
+        mask_pred = F.softmax(mask_pred, dim=1)
+        mask_pred = mask_pred[0, 1]
+        mask_pred = mask_pred.detach().cpu().numpy()
+        label_pred = mask_pred.mean()
+        return label_pred, mask_pred
 
 
 PREDICT_CONFIGS = {
@@ -71,8 +106,14 @@ def main(
 ):
     if supervision == "full":
         from dolos.methods.patch_forensics.train_full_supervision import CONFIGS
+        from dolos.methods.grad_cam.train_full_supervision import MASK_SIZE as mask_size
+
+        GetLabelAndMaskPred = GetLabelAndMaskPredFull
     elif supervision == "weak":
         from dolos.methods.patch_forensics.train_weak_supervision import CONFIGS
+
+        GetLabelAndMaskPred = GetLabelAndMaskPredWeak
+        mask_size = (299, 299)
     else:
         assert False, "Unknown supervision type"
 
@@ -82,9 +123,9 @@ def main(
 
     method_name = "grad-cam"
     model = load_model(supervision, train_config_name, train_config, device)
+    get_label_and_mask_pred = GetLabelAndMaskPred(model)
 
     num_images = len(dataset)
-    mask_size = (299, 299)
 
     mask_preds = np.zeros((num_images,) + mask_size)
     label_preds = np.zeros((num_images,))
@@ -99,19 +140,6 @@ def main(
             train_config_name, predict_config_name
         ),
     )
-
-    targets = [ClassifierOutputTarget(1)]
-    target_layers = [model.block11]
-    cam = GradCAM(model=model, target_layers=target_layers)
-
-    def get_label_and_mask_pred(image):
-        mask_pred = cam(input_tensor=image.unsqueeze(0), targets=targets)
-        mask_pred = mask_pred[0]
-        # mask_pred = Image.fromarray(mask_pred).resize((256, 256), Image.BILINEAR)
-        # mask_pred = np.array(mask_pred)
-        mask_pred = mask_pred / mask_pred.max()
-        label_pred = cam.outputs[0, 1]
-        return label_pred, mask_pred
 
     for i in tqdm(range(num_images)):
         image = load_image(dataset, i, split="valid")

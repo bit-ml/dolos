@@ -30,6 +30,8 @@ from dolos.metrics.iou_ignite import IOU
 from dolos.data import RepaintP2CelebAHQDataset
 
 
+MASK_SIZE = (19, 19)
+
 
 CONFIGS = {
     "setup-c": {
@@ -53,8 +55,7 @@ def main(config_name):
     model = xceptionnetfcn(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
 
-    mask_size = (19, 19)
-    transform_mask = get_transform_mask(mask_size)
+    transform_mask = get_transform_mask(MASK_SIZE)
 
     train_loader = get_datapipe(config, "train", transform_mask)
     valid_loader = get_datapipe(config, "valid", transform_mask)
@@ -134,7 +135,7 @@ def main(config_name):
         return -engine.state.metrics["loss"]
 
     model_checkpoint = ModelCheckpoint(
-        f"output/patch-forensics/full-supervision/{config_name}",
+        f"output/grad-cam/full-supervision/{config_name}",
         n_saved=5,
         filename_prefix="best",
         score_function=score_function,
