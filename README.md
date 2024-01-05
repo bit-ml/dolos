@@ -141,6 +141,16 @@ Finally, to obtain the evaluation metrics and generate Figure 6 in the paper:
 streamlit run dolos/methods/patch_forensics/show_cross_model_performance.py
 ```
 
+## Pretrained models
+
+We provide the weights of the Patches method trained in the setups described in sections 5.1 and 5.2.
+The models are available [here](https://sharing.speed.pub.ro/owncloud/index.php/s/MTSTY7tnKqn21h4) and can be downloaded as follows:
+
+```bash
+wget https://sharing.speed.pub.ro/owncloud/index.php/s/MTSTY7tnKqn21h4/download -O dolos-models-patches.zip
+unzip dolos-models-patches.zip
+```
+
 ## Name
 
 The name comes from Greek mythology; according to [Wikipedia](https://en.wikipedia.org/wiki/Dolos_(mythology)):
